@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
 
 function App() {
+  const [data, setData] = useState();
+  useEffect(() => {
+    const fetchdata = async () => {
+      const response = await fetch(
+        "https://app.zipcodebase.com/api/v1/search?codes=152123,10006&apikey=21e42700-f479-11ed-aaed-5d81ef52ae4c"
+      );
+      const data = await response.json();
+      setData(data);
+    };
+    fetchdata();
+  });
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {data?.results?.["10006"]?.map((el) => (
+        <h1>{el.city}</h1>
+      ))}
     </div>
   );
 }
