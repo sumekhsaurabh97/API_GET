@@ -7,11 +7,12 @@ function App() {
       const response = await fetch(
         "https://app.zipcodebase.com/api/v1/search?codes=152123,10006&apikey=21e42700-f479-11ed-aaed-5d81ef52ae4c"
       );
+      // facing some issue with your AIP it works fine with other APIs.
       const data = await response.json();
       setData(data);
     };
     fetchdata();
-  });
+  },[]);
   return (
     <div className="App">
       {data?.results?.["10006"]?.map((el) => (
